@@ -20,3 +20,10 @@ Time is your most valuable asset. YT Video Focus eliminates digital clutter, acc
 NOTE:
 This is my first time doing web based project, it may have bugs. I used AI model for html and css. I didn't know any javascript before this project, learned by doing. I also used AI model for assistance with javascript.
 There is also a Chrome Web Store page of this extension: 
+
+<img width="1280" height="800" alt="Main" src="https://github.com/user-attachments/assets/e30b2b5c-0842-4509-83cb-ae06ed873aad" />
+<img width="1280" height="800" alt="Focus_mode_on" src="https://github.com/user-attachments/assets/1fdd52b9-525f-41fd-80f0-cb0d8a5a3d34" />
+<img width="1280" height="800" alt="lists" src="https://github.com/user-attachments/assets/91e691ca-99c2-4dc2-88fe-191a67d9d09a" />
+<img width="1280" height="800" alt="Blocked" src="https://github.com/user-attachments/assets/7a33ac2a-9916-4e2f-9178-e3591d993f06" />
+<img width="1280" height="800" alt="stats" src="https://github.com/user-attachments/assets/99a64e62-ed0e-47ce-b51d-cf276259f190" />
+
