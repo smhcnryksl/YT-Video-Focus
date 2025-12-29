@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 340px;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    .page {
+      padding: 10px;
+      display: none;
+    }
+
+    .active-page {
+      display: block;
+    }
+
+    .header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 5px;
+      gap: 10px;
+    }
+
+    .status-btn {
+      cursor: pointer;
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      color: white;
+      font-weight: bold;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .on {
+      background: #27ae60;
+    }
+
+    .off {
+      background: #c0392b;
+    }
+
+    .stats {
+      background: #f8f9fa;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      border: 1px solid #eee;
+    }
+
+    .nav-btn {
+      cursor: pointer;
+      color: #3498db;
+      background: none;
+      border: 1px solid #3498db;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .circle-btn {
+      cursor: pointer;
+      border: 1px solid #ddd;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      font-size: 14px;
+    }
+
+    input,
+    select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    #listItems {
+      max-height: 140px;
+      overflow-y: auto;
+      background: #fdfdfd;
+      border: 1px solid #eee;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 10px;
+      border-bottom: 1px solid #eee;
+      font-size: 12px;
+    }
+
+    .del-item {
+      color: #e74c3c;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 15px;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      padding-bottom: 5px;
+    }
+
+    .footer a {
+      color: #95a5a6;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .footer a:hover {
+      color: #34495e;
+      text-decoration: none;
+    }
+
+    #guideSteps {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #2c3e50;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+
+    .footer-row a {
+      color: #95a5a6;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .footer-row a:hover {
+      color: #34495e;
+    }
+
+    .control-group {
+      margin-bottom: 10px;
+    }
+
+    .group-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #7f8c8d;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .modern-input,
+    .modern-select {
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fdfdfd;
+      font-size: 12px;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .modern-input:focus,
+    .modern-select:focus {
+      border-color: #3498db;
+      background: #fff;
+    }
+
+    .modern-input {
+      flex: 1;
+    }
+
+    .icon-btn {
+      border: none;
+      border-radius: 6px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      color: white;
+      transition: opacity 0.2s;
+    }
+
+    .icon-btn:hover {
+      opacity: 0.85;
+    }
+
+    .icon-btn.primary {
+      background: #3498db;
+    }
+
+    .icon-btn.success {
+      background: #2ecc71;
+    }
+
+    .icon-btn.danger {
+      background: #e74c3c;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="focusPage" class="page active-page">
+    <div class="header">
+      <button id="toGuideBtn" class="circle-btn">?</button>
+      <button id="toStatsBtn" class="circle-btn">📊</button>
+      <select id="langSelect">
+        <option value="tr">TR</option>
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+      </select>
+    </div>
+    <div class="stats">
+      <b id="labelElapsed">...</b> <span id="timerDisplay">00:00</span><br>
+      <div style="margin-top:4px;"><b id="labelVideo">...</b> <span id="videoDuration">--:--</span></div>
+      <div style="margin-top:4px;"><b id="labelWatched">...</b> <span id="videoWatched">--:--</span></div>
+
+      <div id="playlistStats" style="display:none; margin-top:10px; border-top:1px solid #ddd; padding-top:5px;">
+        <b id="labelPlaylist" style="font-size:12px;">Playlist Info:</b>
+        <table style="width:100%; font-size:11px; margin-top:2px;">
+          <tr>
+            <td>Total:</td>
+            <td id="plTotal">--:--</td>
+          </tr>
+          <tr>
+            <td>1.25x:</td>
+            <td id="pl125">--:--</td>
+          </tr>
+          <tr>
+            <td>1.5x:</td>
+            <td id="pl150">--:--</td>
+          </tr>
+          <tr>
+            <td>1.75x:</td>
+            <td id="pl175">--:--</td>
+          </tr>
+          <tr>
+            <td>2.0x:</td>
+            <td id="pl200">--:--</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button id="toggleBtn" class="status-btn">...</button>
+
+
+    <div class="footer-row">
+      <a href="https://linktr.ee/smhcnryksl" target="_blank" id="devLink">Developer</a>
+      <button class="nav-btn" id="toListsBtn">...</button>
+    </div>
+  </div>
+
+  <div id="listPage" class="page">
+    <div class="header" style="justify-content: flex-start; margin-bottom: 15px;">
+      <button class="nav-btn" id="toFocusBtn">← Back</button>
+      <h3 style="margin: 0 0 0 10px; font-size: 14px; color: #555;">Manage Lists</h3>
+    </div>
+
+    <div class="control-group">
+      <label class="group-label" id="lblCreateList">Create New List</label>
+      <div style="display: flex; gap: 5px;">
+        <input type="text" id="newProfileName" class="modern-input" placeholder="List Name (e.g. Work)">
+        <select id="newProfileType" class="modern-select" style="width: 80px;">
+          <option value="blacklist">Blacklist</option>
+          <option value="whitelist">Whitelist</option>
+        </select>
+        <button id="addProfileBtn" class="icon-btn success">+</button>
+      </div>
+    </div>
+
+    <div class="control-group" style="margin-top: 15px;">
+      <label class="group-label" id="lblSelectList">Select List to Edit</label>
+      <div style="display: flex; gap: 5px;">
+        <select id="profileSelect" class="modern-select" style="flex: 1;"></select>
+        <button id="deleteProfileBtn" class="icon-btn danger" title="Delete List">🗑️</button>
+      </div>
+    </div>
+
+    <div class="control-group" style="margin-top: 15px;">
+      <label class="group-label" id="lblAddSites">Add Sites to List</label>
+      <div style="display: flex; gap: 5px;">
+        <input type="text" id="listInput" class="modern-input" placeholder="e.g. instagram.com">
+        <button id="addListBtn" class="icon-btn primary">+</button>
+      </div>
+      <div id="listItems"></div>
+    </div>
+  </div>
+
+  <div id="warningModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div class="modal-icon">⚠️</div>
+      <p id="warningText">Lütfen önce bir YouTube videosu açın!</p>
+      <button id="closeWarningBtn">Tamam</button>
+    </div>
+  </div>
+
+  <div id="confirmModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-icon">❓</div>
+      <p id="confirmText">Are you sure?</p>
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button id="confirmYesBtn" class="status-btn on" style="width: auto; padding: 8px 20px; margin: 0;">Yes</button>
+        <button id="confirmNoBtn" class="status-btn off" style="width: auto; padding: 8px 20px; margin: 0;">No</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
+      border: 1px solid #444;
+      border-radius: 12px;
+      padding: 20px;
+      width: 80%;
+      max-width: 250px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      animation: popIn 0.3s ease;
+      color: #fff;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    #warningText {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #eee;
+    }
+
+    #closeWarningBtn {
+      background: #ff4757;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+
+    #closeWarningBtn:hover {
+      transform: scale(1.05);
+      background: #ff6b81;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close-modal:hover {
+      color: #fff;
+    }
+  </style>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
