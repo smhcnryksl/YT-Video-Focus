@@ -1,4 +1,4 @@
-# YT-Video-Focus
+# YT Video-Focus
 Extension for chrome based web browsers to make you focus only on the video!
 
 
