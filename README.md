@@ -18,7 +18,7 @@ WHY USE IT?
 Time is your most valuable asset. YT Video Focus eliminates digital clutter, accelerating your learning process and maximizing productivity. Don't rely solely on willpower; let the system handle the distractions.
 
 NOTE:
-This is my first time doing web based project, it may have bugs. I used AI model for html and css. I didn't know any javascript before this project, learned by doing. I also used AI model for assistance with javascript.
+This is my first time doing web based project, it may have bugs. I used AI model for html and css. I didn't know any javascript before this project, learned by doing. I also used AI model for assistance with javascript. Made in 3 weeks with because of the learning process.
 There is also a Chrome Web Store page of this extension: 
 
 <img width="1280" height="800" alt="Main" src="https://github.com/user-attachments/assets/e30b2b5c-0842-4509-83cb-ae06ed873aad" />
